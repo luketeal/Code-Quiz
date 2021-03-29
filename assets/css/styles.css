@@ -15,7 +15,7 @@
 .timer {
     padding: 0;
     margin: 0;
-    display: none;
+    /* display: none; */
 }
 
 .flexmain {
@@ -26,11 +26,24 @@
 }
 
 .start {
-    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .questions {
-    /* display: none; */
+    display: block;
+}
+
+.q1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.q2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
