@@ -33,11 +33,7 @@
 }
 
 .questions {
-    display: block;
-}
-
-.q1 {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -45,4 +41,8 @@
 
 .qtext {
     display: block;
+}
+
+.scoreInput {
+    display: none;
 }

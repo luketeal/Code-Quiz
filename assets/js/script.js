@@ -3,6 +3,9 @@ let answerButton = document.querySelectorAll(".answer");
 let timeLeft = document.querySelector(".timer")
 let startScreen = document.querySelector(".start")
 let questionText = document.querySelector(".qtext")
+let scoreScreen = document.querySelector(".scoreInput")
+let questionScreen = document.querySelector(".questions")
+let quizScore = document.querySelector(".yourScore")
 
 let questions = {
     question: ["question 0", "question 1"],
@@ -11,25 +14,46 @@ let questions = {
         ["wrong 0.0", "wrong 0.1", "wrong 0.2"], 
         ["wrong 1.0", "wrong 1.1", "wrong 1.2"]
     ],
-    questionTracker: 0 
+    questionTracker: 0, 
+}
+
+let questionTotal = questions.question.length - 1;
+
+let questionAnswers = []
+
+function logScore () {
+    scoreScreen.setAttribute("style", "display: block")
 }
 
 function cycleQuestions () {
-    // startScreen.setAttribute("style", "display: none")
-    questionText.textContent = questions.question[questions.questionTracker];
-    let questionAnswers = questions.wrongAnswer[questions.questionTracker];
-    questionAnswers.push(questions.correctAnswer[questions.questionTracker])
-    console.log(questionAnswers)
-    questionAnswers = questionAnswers.sort(() => Math.random() - 0.5)
-    console.log(questionAnswers)
-    answerButton[0].textContent = questionAnswers[0]
-    answerButton[1].textContent = questionAnswers[1]
-    answerButton[2].textContent = questionAnswers[2]
-    answerButton[3].textContent = questionAnswers[3]
-    questions.questionTracker++;
+
+    if (questions.questionTracker <= questionTotal) {
+
+        questionText.textContent = questions.question[questions.questionTracker];
+       
+        questionAnswers = questions.wrongAnswer[questions.questionTracker];
+        questionAnswers.push(questions.correctAnswer[questions.questionTracker])
+        console.log(questionAnswers)
+        questionAnswers = questionAnswers.sort(() => Math.random() - 0.5)
+        console.log(questionAnswers)
+       
+        answerButton[0].textContent = questionAnswers[0]
+        answerButton[1].textContent = questionAnswers[1]
+        answerButton[2].textContent = questionAnswers[2]
+        answerButton[3].textContent = questionAnswers[3]
+        
+        questions.questionTracker++;
+        
+        console.log(questions.questionTracker)
+
+    } else {
+        questionScreen.setAttribute("style", "display: none")
+        logScore()
+    }
+
 }
 
-let secondsLeft = 5;
+let secondsLeft = 15;
 
 function setTime () {
     let timerInterval = setInterval(() => {
@@ -47,7 +71,8 @@ function setTime () {
 
 function startQuiz () {
     // change display to none
-    // startScreen.setAttribute("style", "display: none")
+    startScreen.setAttribute("style", "display: none")
+    questionScreen.setAttribute("style", "display: flex")
     // let printOut = startButton.textContent
     // console.log(printOut)
     startButton.textContent = "test";
