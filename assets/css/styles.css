@@ -43,9 +43,6 @@
     align-items: center;
 }
 
-.q2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.qtext {
+    display: block;
 }

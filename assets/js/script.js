@@ -1,7 +1,8 @@
 let startButton = document.querySelector(".begin");
-let answerButton = document.querySelector(".answer");
+let answerButton = document.querySelectorAll(".answer");
 let timeLeft = document.querySelector(".timer")
 let startScreen = document.querySelector(".start")
+let questionText = document.querySelector(".qtext")
 
 let questions = {
     question: ["question 0", "question 1"],
@@ -14,10 +15,21 @@ let questions = {
 }
 
 function cycleQuestions () {
-    
+    // startScreen.setAttribute("style", "display: none")
+    questionText.textContent = questions.question[questions.questionTracker];
+    let questionAnswers = questions.wrongAnswer[questions.questionTracker];
+    questionAnswers.push(questions.correctAnswer[questions.questionTracker])
+    console.log(questionAnswers)
+    questionAnswers = questionAnswers.sort(() => Math.random() - 0.5)
+    console.log(questionAnswers)
+    answerButton[0].textContent = questionAnswers[0]
+    answerButton[1].textContent = questionAnswers[1]
+    answerButton[2].textContent = questionAnswers[2]
+    answerButton[3].textContent = questionAnswers[3]
+    questions.questionTracker++;
 }
 
-let secondsLeft = 100;
+let secondsLeft = 5;
 
 function setTime () {
     let timerInterval = setInterval(() => {
@@ -38,13 +50,18 @@ function startQuiz () {
     // startScreen.setAttribute("style", "display: none")
     // let printOut = startButton.textContent
     // console.log(printOut)
-    // startButton.textContent = "test";
-    cycleQuestions()
+    startButton.textContent = "test";
     setTime()
+    cycleQuestions()
 }
 
 
-startButton.addEventListener("click", startQuiz)
+startButton.addEventListener("click", startQuiz);
+answerButton[0].addEventListener("click", cycleQuestions)
+answerButton[1].addEventListener("click", cycleQuestions)
+answerButton[2].addEventListener("click", cycleQuestions)
+answerButton[3].addEventListener("click", cycleQuestions)
+
 
 // event listener on begin game: when selected
 // change display to none
