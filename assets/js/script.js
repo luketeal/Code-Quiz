@@ -17,19 +17,30 @@ function cycleQuestions () {
     
 }
 
-function runTimer () {
+let secondsLeft = 100;
 
+function setTime () {
+    let timerInterval = setInterval(() => {
+        secondsLeft--;
+        timeLeft.textContent = secondsLeft
+
+        if (secondsLeft === 0) {
+            clearInterval(timerInterval);
+            timeLeft.textContent = "Time's Up"
+        }
+
+    }, 1000);
 }
 
 
 function startQuiz () {
     // change display to none
-    startScreen.setAttribute("style", "display: none")
+    // startScreen.setAttribute("style", "display: none")
     // let printOut = startButton.textContent
     // console.log(printOut)
     // startButton.textContent = "test";
     cycleQuestions()
-    runTimer()
+    setTime()
 }
 
 
