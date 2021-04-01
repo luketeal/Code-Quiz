@@ -46,3 +46,7 @@
 .scoreInput {
     display: none;
 }
+
+.highScore {
+    display: none;
+}

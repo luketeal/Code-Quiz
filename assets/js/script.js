@@ -1,11 +1,13 @@
 let startButton = document.querySelector(".begin");
 let answerButton = document.querySelectorAll(".answer");
-let timeLeft = document.querySelector(".timer")
-let startScreen = document.querySelector(".start")
-let questionText = document.querySelector(".qtext")
-let scoreScreen = document.querySelector(".scoreInput")
-let questionScreen = document.querySelector(".questions")
-let quizScore = document.querySelector(".yourScore")
+let timeLeft = document.querySelector(".timer");
+let startScreen = document.querySelector(".start");
+let questionText = document.querySelector(".qtext");
+let scoreScreen = document.querySelector(".scoreInput");
+let questionScreen = document.querySelector(".questions");
+let quizScore = document.querySelector(".yourScore");
+let submitButton = document.querySelector(".submitButton");
+let highScore = document.querySelector(".highScore");
 
 let questions = {
     question: ["question 0", "question 1"],
@@ -15,77 +17,115 @@ let questions = {
         ["wrong 1.0", "wrong 1.1", "wrong 1.2"]
     ],
     questionTracker: 0, 
+    answerTracker: 0,
 }
 
 let questionTotal = questions.question.length - 1;
 
-let questionAnswers = []
+let questionAnswers = [];
 
-function logScore () {
+let secondsLeft = 20;
+
+function logScore (score) {
+    questionScreen.setAttribute("style", "display: none")
     scoreScreen.setAttribute("style", "display: block")
+    quizScore.textContent = "your score was " + score;
 }
 
-function cycleQuestions () {
+function cycleQuestions (event) {
 
+
+    if(event !== undefined) {
+        if(event.target.textContent === questions.correctAnswer[questions.answerTracker]) {
+            console.log(questions.answerTracker)
+            console.log('correct')
+            questions.answerTracker++
+
+        } else {
+            console.log(questions.answerTracker)
+            console.log('wrong')
+            questions.answerTracker++;
+            secondsLeft = secondsLeft-10;
+            timeLeft.textContent = secondsLeft;
+        }
+    }
+
+    let score = 0
+
+    // cycles to the next question if there are still questions to answer and there is time left
     if (questions.questionTracker <= questionTotal) {
 
         questionText.textContent = questions.question[questions.questionTracker];
        
         questionAnswers = questions.wrongAnswer[questions.questionTracker];
-        questionAnswers.push(questions.correctAnswer[questions.questionTracker])
-        console.log(questionAnswers)
-        questionAnswers = questionAnswers.sort(() => Math.random() - 0.5)
-        console.log(questionAnswers)
-       
-        answerButton[0].textContent = questionAnswers[0]
-        answerButton[1].textContent = questionAnswers[1]
-        answerButton[2].textContent = questionAnswers[2]
-        answerButton[3].textContent = questionAnswers[3]
+        questionAnswers.push(questions.correctAnswer[questions.questionTracker]);
+        console.log(questionAnswers);
+        questionAnswers = questionAnswers.sort(() => Math.random() - 0.5);
+        console.log(questionAnswers);
+        
+        answerButton[0].textContent = questionAnswers[0];
+        answerButton[1].textContent = questionAnswers[1];
+        answerButton[2].textContent = questionAnswers[2];
+        answerButton[3].textContent = questionAnswers[3];
         
         questions.questionTracker++;
         
-        console.log(questions.questionTracker)
+        console.log(questions.questionTracker);
 
     } else {
-        questionScreen.setAttribute("style", "display: none")
-        logScore()
+        score = secondsLeft;
+        secondsLeft = -1;
+        logScore(score);
     }
 
 }
 
-let secondsLeft = 15;
-
-function setTime () {
-    let timerInterval = setInterval(() => {
-        secondsLeft--;
-        timeLeft.textContent = secondsLeft
-
-        if (secondsLeft === 0) {
-            clearInterval(timerInterval);
-            timeLeft.textContent = "Time's Up"
-        }
-
-    }, 1000);
-}
-
-
 function startQuiz () {
     // change display to none
-    startScreen.setAttribute("style", "display: none")
-    questionScreen.setAttribute("style", "display: flex")
+    startScreen.setAttribute("style", "display: none");
+    questionScreen.setAttribute("style", "display: flex");
     // let printOut = startButton.textContent
     // console.log(printOut)
     startButton.textContent = "test";
-    setTime()
-    cycleQuestions()
+    // setTime()
+
+    timeLeft.textContent = secondsLeft;
+    let timerInterval = setInterval(
+        
+        function() {
+            secondsLeft--;
+            timeLeft.textContent = secondsLeft;
+
+            if (secondsLeft === 0) {
+                logScore(0);
+                clearInterval(timerInterval);
+                timeLeft.textContent = "Done";
+            } else if(secondsLeft < 0) {
+                clearInterval(timerInterval);
+                timeLeft.textContent = "Done";
+            }
+
+        }, 1000
+
+    );
+
+    cycleQuestions();
+
+}
+
+function saveScore(event) {
+    event.preventDefault();
+    scoreScreen.setAttribute("style", "display: none")
+    highScore.setAttribute("style", "display: block")
 }
 
 
 startButton.addEventListener("click", startQuiz);
-answerButton[0].addEventListener("click", cycleQuestions)
-answerButton[1].addEventListener("click", cycleQuestions)
-answerButton[2].addEventListener("click", cycleQuestions)
-answerButton[3].addEventListener("click", cycleQuestions)
+answerButton[0].addEventListener("click", cycleQuestions);
+answerButton[1].addEventListener("click", cycleQuestions);
+answerButton[2].addEventListener("click", cycleQuestions);
+answerButton[3].addEventListener("click", cycleQuestions);
+submitButton.addEventListener("click", saveScore);
 
 
 // event listener on begin game: when selected
