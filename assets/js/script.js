@@ -8,6 +8,7 @@ let questionScreen = document.querySelector(".questions");
 let quizScore = document.querySelector(".yourScore");
 let submitButton = document.querySelector(".submitButton");
 let highScore = document.querySelector(".highScore");
+let initialsEl = document.querySelector("#initials");
 
 let questions = {
     question: ["question 0", "question 1"],
@@ -25,6 +26,11 @@ let questionTotal = questions.question.length - 1;
 let questionAnswers = [];
 
 let secondsLeft = 20;
+
+let score;
+
+let highScoreArray = [{}];
+let highScoreArraySorted = [{}];
 
 function logScore (score) {
     questionScreen.setAttribute("style", "display: none")
@@ -49,8 +55,6 @@ function cycleQuestions (event) {
             timeLeft.textContent = secondsLeft;
         }
     }
-
-    let score = 0
 
     // cycles to the next question if there are still questions to answer and there is time left
     if (questions.questionTracker <= questionTotal) {
@@ -114,9 +118,36 @@ function startQuiz () {
 }
 
 function saveScore(event) {
+    
+    // on submit, don't reload screen
     event.preventDefault();
-    scoreScreen.setAttribute("style", "display: none")
-    highScore.setAttribute("style", "display: block")
+    
+    // switch to the highscore screen
+    scoreScreen.setAttribute("style", "display: none");
+    highScore.setAttribute("style", "display: block");
+
+    // log the users score and initials to the user object
+    let user = {
+        initials: initialsEl.value,
+        gameScore: score,
+    }
+
+    // appends the user object (initials and score) to array of scores (highScoreArray)
+    if (JSON.parse(localStorage.getItem('highScores')) === null) {
+        highScoreArray [0] = user
+
+    } else {
+        highScoreArray = JSON.parse(localStorage.getItem('highScores'))
+        highScoreArray.push(user)
+    }
+
+    // sort the array in reverse order
+    highScoreArray.sort(function(a, b){return a.gameScore - b.gameScore});
+    highScoreArray.reverse();
+
+    // store the array in local storage
+    localStorage.setItem('highScores', JSON.stringify(highScoreArray));
+
 }
 
 
