@@ -106,7 +106,7 @@ function startQuiz () {
 
     // toggle screens
     startScreen.setAttribute("style", "display: none");
-    timeLeft.setAttribute("style", "display: block")
+    timeLeft.setAttribute("style", "display: flex")
     questionScreen.setAttribute("style", "display: flex");
     
     // begin timer

@@ -7,9 +7,6 @@
     padding: 1rem;
 }
 
-/* .viewscores {
-    text-decoration: none;
-} */
 
 .timer {
     display: none;
@@ -36,14 +33,6 @@
     align-items: center;
 }
 
-.qtext {
-    display: block;
-}
-
 .scoreInput {
     display: none;
-}
-
-.highScore {
-    /* display: none; */
 }
