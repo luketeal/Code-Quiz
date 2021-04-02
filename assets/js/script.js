@@ -9,13 +9,16 @@ let quizScore = document.querySelector(".yourScore");
 let submitButton = document.querySelector(".submitButton");
 let highScore = document.querySelector(".highScore");
 let initialsEl = document.querySelector("#initials");
+let scoreList = document.querySelector(".scoreList");
 
 let questions = {
-    question: ["question 0", "question 1"],
-    correctAnswer: ["correct 0", "correct 1"],
+    question: ["question 0", "question 1", "question 2", "question 3"],
+    correctAnswer: ["correct 0", "correct 1", "correct 2", "correct 3"],
     wrongAnswer: [
         ["wrong 0.0", "wrong 0.1", "wrong 0.2"], 
-        ["wrong 1.0", "wrong 1.1", "wrong 1.2"]
+        ["wrong 1.0", "wrong 1.1", "wrong 1.2"],
+        ["wrong 2.0", "wrong 2.1", "wrong 2.2"],
+        ["wrong 3.0", "wrong 3.1", "wrong 3.2"]
     ],
     questionTracker: 0, 
     answerTracker: 0,
@@ -29,27 +32,25 @@ let secondsLeft = 20;
 
 let score;
 
+let correctCounter = 0;
+
 let highScoreArray = [{}];
 let highScoreArraySorted = [{}];
 
-function logScore (score) {
+function logScore () {
     questionScreen.setAttribute("style", "display: none")
     scoreScreen.setAttribute("style", "display: block")
+    score = correctCounter/questions.question.length*100
     quizScore.textContent = "your score was " + score;
 }
 
 function cycleQuestions (event) {
 
-
     if(event !== undefined) {
         if(event.target.textContent === questions.correctAnswer[questions.answerTracker]) {
-            console.log(questions.answerTracker)
-            console.log('correct')
-            questions.answerTracker++
-
+            questions.answerTracker++;
+            correctCounter++;
         } else {
-            console.log(questions.answerTracker)
-            console.log('wrong')
             questions.answerTracker++;
             secondsLeft = secondsLeft-10;
             timeLeft.textContent = secondsLeft;
@@ -63,9 +64,7 @@ function cycleQuestions (event) {
        
         questionAnswers = questions.wrongAnswer[questions.questionTracker];
         questionAnswers.push(questions.correctAnswer[questions.questionTracker]);
-        console.log(questionAnswers);
         questionAnswers = questionAnswers.sort(() => Math.random() - 0.5);
-        console.log(questionAnswers);
         
         answerButton[0].textContent = questionAnswers[0];
         answerButton[1].textContent = questionAnswers[1];
@@ -73,13 +72,10 @@ function cycleQuestions (event) {
         answerButton[3].textContent = questionAnswers[3];
         
         questions.questionTracker++;
-        
-        console.log(questions.questionTracker);
 
     } else {
-        score = secondsLeft;
         secondsLeft = -1;
-        logScore(score);
+        logScore();
     }
 
 }
@@ -101,7 +97,7 @@ function startQuiz () {
             timeLeft.textContent = secondsLeft;
 
             if (secondsLeft === 0) {
-                logScore(0);
+                logScore();
                 clearInterval(timerInterval);
                 timeLeft.textContent = "Done";
             } else if(secondsLeft < 0) {
@@ -148,6 +144,12 @@ function saveScore(event) {
     // store the array in local storage
     localStorage.setItem('highScores', JSON.stringify(highScoreArray));
 
+    // add list of high scores
+    for (let i=0; i<highScoreArray.length; i++) {
+        let li = document.createElement("li");
+        scoreList.appendChild(li);
+        li.textContent= highScoreArray[i].initials + ' - ' + highScoreArray[i].gameScore
+    }
 }
 
 
