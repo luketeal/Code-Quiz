@@ -81,13 +81,9 @@ function cycleQuestions (event) {
 }
 
 function startQuiz () {
-    // change display to none
+
     startScreen.setAttribute("style", "display: none");
     questionScreen.setAttribute("style", "display: flex");
-    // let printOut = startButton.textContent
-    // console.log(printOut)
-    startButton.textContent = "test";
-    // setTime()
 
     timeLeft.textContent = secondsLeft;
     let timerInterval = setInterval(
@@ -160,22 +156,4 @@ answerButton[2].addEventListener("click", cycleQuestions);
 answerButton[3].addEventListener("click", cycleQuestions);
 submitButton.addEventListener("click", saveScore);
 
-
-// event listener on begin game: when selected
-// change display to none
-// display first questions
-// start timer
-
-// event listener on answer buttons: when an answer is selected
-// evaluate if the answer was correct 
-    // if correct,
-        // tell me that the answer is correct
-    // if wrong,
-        // tell me that the answer is wrong and reduce time on the timer
-// display the next question
-
-// when last answer is selected
-    // display time left
-    // request initials
-    // save info to local storage
 
