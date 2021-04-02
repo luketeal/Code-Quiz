@@ -7,14 +7,11 @@
     padding: 1rem;
 }
 
-.viewscores {
-    padding: 0;
-    margin: 0;
-}
+/* .viewscores {
+    text-decoration: none;
+} */
 
 .timer {
-    padding: 0;
-    margin: 0;
     display: none;
 }
 
@@ -48,5 +45,5 @@
 }
 
 .highScore {
-    display: none;
+    /* display: none; */
 }

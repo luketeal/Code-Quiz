@@ -8,9 +8,8 @@ let scoreScreen = document.querySelector(".scoreInput");
 let questionScreen = document.querySelector(".questions");
 let quizScore = document.querySelector(".yourScore");
 let submitButton = document.querySelector(".submitButton");
-let highScore = document.querySelector(".highScore");
 let initialsEl = document.querySelector("#initials");
-let scoreList = document.querySelector(".scoreList");
+let viewScoreEl = document.querySelector(".viewscores");
 
 // Define Array of Questions
 let questions = {
@@ -29,7 +28,7 @@ let questions = {
 // initialize the amount of time left for the quiz
 let secondsLeft = 50;
 
-// initialize score variabl globally
+// initialize score variable globally
 let score;
 
 // initialize the number of correct answers counter globally
@@ -141,10 +140,6 @@ function saveScore(event) {
     // on submit, don't reload screen
     event.preventDefault();
     
-    // switch to the highscore screen
-    scoreScreen.setAttribute("style", "display: none");
-    highScore.setAttribute("style", "display: block");
-
     // log the users score and initials to the user object
     let user = {
         initials: initialsEl.value,
@@ -167,12 +162,12 @@ function saveScore(event) {
     // store the array in local storage
     localStorage.setItem('highScores', JSON.stringify(highScoreArray));
 
-    // add list of high scores
-    for (let i=0; i<highScoreArray.length; i++) {
-        let li = document.createElement("li");
-        scoreList.appendChild(li);
-        li.textContent= highScoreArray[i].initials + ' - ' + highScoreArray[i].gameScore + '%'
-    }
+    // open High Scores Page
+    openHighScore();
+}
+
+function openHighScore() {
+    window.open('highscore.html', '_self')
 }
 
 // event listeners
