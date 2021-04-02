@@ -41,7 +41,7 @@ function logScore () {
     questionScreen.setAttribute("style", "display: none")
     scoreScreen.setAttribute("style", "display: block")
     score = correctCounter/questions.question.length*100
-    quizScore.textContent = "your score was " + score + '%';
+    quizScore.textContent = "Your Score: " + score + '%';
 }
 
 function cycleQuestions (event) {
@@ -55,6 +55,7 @@ function cycleQuestions (event) {
             secondsLeft = secondsLeft-10;
             if(secondsLeft < 0) {
                 timeLeft.textContent = 'Done';
+                logScore();
             } else {
                 timeLeft.textContent = secondsLeft;
             }
@@ -97,8 +98,11 @@ function startQuiz () {
             secondsLeft--;
             timeLeft.textContent = secondsLeft;
 
-            if (secondsLeft <= 0) {
+            if (secondsLeft === 0) {
                 logScore();
+                clearInterval(timerInterval);
+                timeLeft.textContent = "Done";
+            } else if(secondsLeft < 0) {
                 clearInterval(timerInterval);
                 timeLeft.textContent = "Done";
             }
