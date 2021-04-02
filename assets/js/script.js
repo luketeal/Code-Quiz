@@ -53,7 +53,12 @@ function cycleQuestions (event) {
         } else {
             questions.answerTracker++;
             secondsLeft = secondsLeft-10;
-            timeLeft.textContent = secondsLeft;
+            if(secondsLeft < 0) {
+                timeLeft.textContent = 'Done';
+            } else {
+                timeLeft.textContent = secondsLeft;
+            }
+            
         }
     }
 
@@ -92,11 +97,8 @@ function startQuiz () {
             secondsLeft--;
             timeLeft.textContent = secondsLeft;
 
-            if (secondsLeft === 0) {
+            if (secondsLeft <= 0) {
                 logScore();
-                clearInterval(timerInterval);
-                timeLeft.textContent = "Done";
-            } else if(secondsLeft < 0) {
                 clearInterval(timerInterval);
                 timeLeft.textContent = "Done";
             }
