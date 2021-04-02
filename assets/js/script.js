@@ -41,7 +41,7 @@ function logScore () {
     questionScreen.setAttribute("style", "display: none")
     scoreScreen.setAttribute("style", "display: block")
     score = correctCounter/questions.question.length*100
-    quizScore.textContent = "your score was " + score;
+    quizScore.textContent = "your score was " + score + '%';
 }
 
 function cycleQuestions (event) {
@@ -148,7 +148,7 @@ function saveScore(event) {
     for (let i=0; i<highScoreArray.length; i++) {
         let li = document.createElement("li");
         scoreList.appendChild(li);
-        li.textContent= highScoreArray[i].initials + ' - ' + highScoreArray[i].gameScore
+        li.textContent= highScoreArray[i].initials + ' - ' + highScoreArray[i].gameScore + '%'
     }
 }
 
