@@ -13,13 +13,46 @@ let viewScoreEl = document.querySelector(".viewscores");
 
 // Define Array of Questions
 let questions = {
-    question: ["question 0", "question 1", "question 2", "question 3"],
-    correctAnswer: ["correct 0", "correct 1", "correct 2", "correct 3"],
+    question: [
+        "What declares a variable?", 
+        "What function makes a timer stop?", 
+        "Which of the following is not a JavaScript data type?", 
+        "Which of the following is the most strict equality opertor?",
+        "All of the following pop-up boxes are available in JavaScrip except"
+    ],
+    correctAnswer: [
+        "let", 
+        "clearInterval()", 
+        "Null", 
+        "===",
+        "Tooltip"
+    ],
     wrongAnswer: [
-        ["wrong 0.0", "wrong 0.1", "wrong 0.2"], 
-        ["wrong 1.0", "wrong 1.1", "wrong 1.2"],
-        ["wrong 2.0", "wrong 2.1", "wrong 2.2"],
-        ["wrong 3.0", "wrong 3.1", "wrong 3.2"]
+        [
+            "const", 
+            "function", 
+            "()"
+        ], 
+        [
+            "setInterval()", 
+            "setTimeout()", 
+            "stopInterval()"
+        ],
+        [
+            "Number", 
+            "Boolean", 
+            "Object"
+        ],
+        [
+            "=", 
+            "==", 
+            "===="
+        ],
+        [
+            "Alert", 
+            "Prompt", 
+            "Confirm"
+        ]
     ],
     questionTracker: 0, 
     answerTracker: 0,
