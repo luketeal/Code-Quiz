@@ -10,6 +10,12 @@ if (highScoreArray != null) {
     }
 }
 
+if (highScoreArray === null) {
+        let p = document.createElement("lp");
+        scoreList.appendChild(p);
+        p.textContent= 'No Scores'
+}
+
 function clearScore () {
     localStorage.clear();
     location.reload();
