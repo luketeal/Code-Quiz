@@ -10,6 +10,8 @@ let quizScore = document.querySelector(".yourScore");
 let submitButton = document.querySelector(".submitButton");
 let initialsEl = document.querySelector("#initials");
 let viewScoreEl = document.querySelector(".viewscores");
+let responseEl = document.querySelector(".response");
+
 
 // Define Array of Questions
 let questions = {
@@ -94,8 +96,22 @@ function cycleQuestions (event) {
         // evaluate if the button pressed is the correct answer, if so increment the correct answer counter, if not reduce timer.
         if(event.target.textContent === questions.correctAnswer[questions.answerTracker]) {
             correctCounter++;
+            
+            responseEl.textContent = 'Great Job!'
+            
+            setTimeout(() => {
+                responseEl.textContent = '';
+            }, 1000)
+
+
         } else {
             secondsLeft = secondsLeft-10;
+
+            responseEl.textContent = 'Wrong!'
+            
+            setTimeout(() => {
+                responseEl.textContent = '';
+            }, 1000)
 
             // if timer is less than zero go to log score screen
             if(secondsLeft < 0) {
@@ -128,9 +144,18 @@ function cycleQuestions (event) {
         // increment the question tracker for the next question
         questions.questionTracker++;
 
+        // remove button focus
+        for(let i=0; i<answerButton.length; i++) {
+            answerButton[i].blur()
+        }
+
     } else {
-        secondsLeft = -1;
-        logScore();
+      
+        setTimeout(() => {
+            secondsLeft = -1;
+            logScore();
+        }, 1000)
+
     }
 
 }

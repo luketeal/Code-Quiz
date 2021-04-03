@@ -19,3 +19,7 @@
 .scoreInput {
     display: none;
 }
+
+.response {
+    font-style: italic;
+}
