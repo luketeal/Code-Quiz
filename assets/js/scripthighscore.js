@@ -1,5 +1,6 @@
 let highScoreArray = JSON.parse(localStorage.getItem('highScores'))
 let scoreList = document.querySelector(".scoreList");
+let clearScoreEl = document.querySelector(".clearScore");
 
 if (highScoreArray != null) {
     for (let i=0; i<highScoreArray.length; i++) {
@@ -8,3 +9,10 @@ if (highScoreArray != null) {
         li.textContent= highScoreArray[i].initials + ' - ' + highScoreArray[i].gameScore + '%'
     }
 }
+
+function clearScore () {
+    localStorage.clear();
+    location.reload();
+}
+
+clearScoreEl.addEventListener("click", clearScore);
