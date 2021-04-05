@@ -25,13 +25,13 @@ let questions = {
     correctAnswer: [
         "let", 
         "clearInterval()", 
-        "Null", 
+        "List", 
         "===",
         "Tooltip"
     ],
     wrongAnswer: [
         [
-            "const", 
+            "v", 
             "function", 
             "()"
         ], 
